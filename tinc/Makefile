@@ -45,6 +45,11 @@ define Package/tinc/config
     bool "Enable curses in tinc"
     depends on PACKAGE_tinc
     default n
+
+  config TINC_NOCTL
+    bool "Only provide core daemon without control interface (to save space)"
+    depends on PACKAGE_tinc
+    default n
 endef
 
 TARGET_CFLAGS += -std=gnu99
@@ -73,7 +78,9 @@ endif
 define Package/tinc/install
 	$(INSTALL_DIR) $(1)/usr/sbin
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/tincd $(1)/usr/sbin/
+ifneq ($(CONFIG_TINC_NOCTL),y)
 	$(INSTALL_BIN) $(PKG_INSTALL_DIR)/usr/sbin/tinc ${1}/usr/sbin/
+endif
 	$(INSTALL_DIR) $(1)/etc/init.d/
 	$(INSTALL_BIN) files/$(PKG_NAME).init $(1)/etc/init.d/$(PKG_NAME)
 	$(INSTALL_DIR) $(1)/etc/config
