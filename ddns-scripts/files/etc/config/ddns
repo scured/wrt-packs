@@ -1,0 +1,27 @@
+#################################################################
+# In order to enable dynamic dns you need at least one section, #
+# and in that seciton the "enabled" option must be set to one   #
+# Each section represents an update to a different service      #
+#################################################################
+
+config service "scured"
+	option enabled		"0"
+	option interface	"wan"
+	option use_syslog	"1"
+
+	option service_name	"scured"
+	option domain		"is.scu.red"
+	option username		"hostname"
+	option password		"MA:CA:DD:RE:SS:00"
+	option use_https	"1"
+	option cacert		/etc/ssl/certs/CertumCA.crt
+
+	option force_interval	"1"
+	option force_unit	"hours"
+	option check_interval	"10"
+	option check_unit	"minutes"
+	option retry_interval	"300"
+	option retry_unit	"seconds"
+
+	option ip_source	"network"
+	option ip_network	"wan"
