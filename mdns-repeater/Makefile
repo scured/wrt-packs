@@ -12,7 +12,7 @@ PKG_VERSION:=1.1402
 PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
-PKG_SOURCE_URL:=https://seongun.net/projects/mdns-repeater
+PKG_SOURCE_URL:=https://dl.scu.red/projects/mdns-repeater
 
 include $(INCLUDE_DIR)/package.mk
 
@@ -20,14 +20,13 @@ define Package/mdns-repeater
   SECTION:=net
   CATEGORY:=Network
   TITLE:=Multicast DNS Repeater
-  URL:=https://seongun.net/projects/mdns-repeater
+  URL:=https://dl.scu.red/projects/mdns-repeater
 endef
 
 define Package/mdns-repeater/description
  Re-broadcasts mDNS packets from one interface to other interfaces,
  in order to overcome the "administratively scoped" limitations of
  Multicast DNS
- scu.red version
 endef
 
 define Package/mdns-repeater/install
