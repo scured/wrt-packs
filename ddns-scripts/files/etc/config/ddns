@@ -10,7 +10,7 @@ config service "scured"
 	option use_syslog	"1"
 
 	option service_name	"scured"
-	option domain		"is.scu.red"
+	option domain		"ob.scu.red"
 	option username		"hostname"
 	option password		"MA:CA:DD:RE:SS:00"
 	option use_https	"1"
