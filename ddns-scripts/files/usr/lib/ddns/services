@@ -1,5 +1,5 @@
 # Hurricane Electric Dynamic DNS
 "he.net"		"http://[DOMAIN]:[PASSWORD]@dyn.dns.he.net/nic/update?hostname=[DOMAIN]&myip=[IP]" 
 
-# 'Scured
-"scured"	"https://ddns.scu.red/?zone=[USERNAME].[DOMAIN]&key=[PASSWORD]&ip=[IP]"
+# ob.scu.red
+"ob.scu.red"	"https://ddns.ob.scu.red/?zone=[USERNAME].[DOMAIN]&key=[PASSWORD]&ip=[IP]"

@@ -27,8 +27,7 @@ define Package/gptfdisk
 endef
 
 define Package/gptfdisk/description
- Partition table manipulation utility with GPT support 
- scu.red version
+ Partition table manipulation utility with GPT support
 endef
 
 define Package/gptfdisk/install

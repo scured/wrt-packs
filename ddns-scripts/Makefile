@@ -20,7 +20,7 @@ endef
 
 define Package/ddns-scripts/description
 	A highly configurable set of scripts for doing
-	dynamic dns updates. scu.red mod.
+	dynamic dns updates. ob.scu.red mod.
 endef
 
 define Build/Prepare

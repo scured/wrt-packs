@@ -32,7 +32,7 @@ endef
 define Package/tinc/description
   tinc is a Virtual Private Network (VPN) daemon that uses tunnelling and
   encryption to create a secure private network between hosts on the Internet.
-  scu.red version
+  ob.scu.red patches
 endef
 
 define Package/tinc/config

@@ -4,13 +4,13 @@
 # Each section represents an update to a different service      #
 #################################################################
 
-config service "scured"
+config service "ob.scu.red"
 	option enabled		"0"
 	option interface	"wan"
 	option use_syslog	"1"
 
-	option service_name	"scured"
-	option domain		"ob.scu.red"
+	option service_name	"ob.scu.red"
+	option domain		"node.scu.red"
 	option username		"hostname"
 	option password		"MA:CA:DD:RE:SS:00"
 	option use_https	"1"
