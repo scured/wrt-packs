@@ -21,7 +21,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/tinc
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+liblzo +libopenssl +kmod-tun +TINC_READLINE:libreadline +TINC_CURSES:libncurses
+  DEPENDS:=+liblzo +!TINC_NOLEGACY:libopenssl +kmod-tun +TINC_READLINE:libreadline +TINC_CURSES:libncurses
   TITLE:=VPN tunneling daemon
   URL:=http://www.tinc-vpn.org/
   SUBMENU:=VPN
@@ -35,6 +35,11 @@ define Package/tinc/description
 endef
 
 define Package/tinc/config
+  config TINC_NOLEGACY
+    bool "Disable the legacy protocol - this removes openssl dependency"
+    depends on PACKAGE_tinc
+    default y
+
   config TINC_READLINE
     bool "Enable readline library use"
     depends on PACKAGE_tinc
@@ -57,6 +62,11 @@ CONFIGURE_ARGS += \
 	--with-kernel="$(LINUX_DIR)" \
 	--with-zlib="$(STAGING_DIR)/usr" \
 	--with-lzo-include="$(STAGING_DIR)/usr/include/lzo"
+
+ifeq ($(CONFIG_TINC_NOLEGACY),y)
+	CONFIGURE_ARGS += \
+	--disable-legacy-protocol
+endif
 
 ifneq ($(CONFIG_TINC_READLINE),y)
 	CONFIGURE_ARGS += \
