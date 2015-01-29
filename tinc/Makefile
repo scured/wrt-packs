@@ -21,7 +21,7 @@ include $(INCLUDE_DIR)/package.mk
 define Package/tinc
   SECTION:=net
   CATEGORY:=Network
-  DEPENDS:=+liblzo +!TINC_NOLEGACY:libopenssl +kmod-tun +TINC_READLINE:libreadline +TINC_CURSES:libncurses
+  DEPENDS:=+kmod-tun +TINC_ZLIB:zlib +TINC_LZO:liblzo +!TINC_NOLEGACY:libopenssl +TINC_READLINE:libreadline +TINC_CURSES:libncurses
   TITLE:=VPN tunneling daemon
   URL:=http://www.tinc-vpn.org/
   SUBMENU:=VPN
@@ -35,8 +35,13 @@ define Package/tinc/description
 endef
 
 define Package/tinc/config
-  config TINC_NOLEGACY
-    bool "Disable the legacy protocol - this removes openssl dependency"
+  config TINC_ZLIB
+    bool "Enable zlib (compression levels 0-9)"
+    depends on PACKAGE_tinc
+    default y
+
+  config TINC_LZO
+    bool "Enable lzo (compression levels 10-11)"
     depends on PACKAGE_tinc
     default y
 
@@ -50,6 +55,11 @@ define Package/tinc/config
     depends on PACKAGE_tinc
     default n
 
+  config TINC_NOLEGACY
+    bool "Disable the legacy protocol (removes openssl dependency)"
+    depends on PACKAGE_tinc
+    default y
+
   config TINC_NOCTL
     bool "Only provide core daemon without control interface (to save space)"
     depends on PACKAGE_tinc
@@ -59,13 +69,22 @@ endef
 TARGET_CFLAGS += -std=gnu99
 
 CONFIGURE_ARGS += \
-	--with-kernel="$(LINUX_DIR)" \
-	--with-zlib="$(STAGING_DIR)/usr" \
-	--with-lzo-include="$(STAGING_DIR)/usr/include/lzo"
+	--with-kernel="$(LINUX_DIR)"
 
-ifeq ($(CONFIG_TINC_NOLEGACY),y)
+ifeq ($(CONFIG_TINC_ZLIB),n)
 	CONFIGURE_ARGS += \
-	--disable-legacy-protocol
+	--disable-zlib
+else
+	CONFIGURE_ARGS += \
+	--with-zlib="$(STAGING_DIR)/usr"
+endif
+
+ifeq ($(CONFIG_TINC_LZO),n)
+	CONFIGURE_ARGS += \
+	--disable-lzo
+else
+	CONFIGURE_ARGS += \
+	--with-lzo-include="$(STAGING_DIR)/usr/include/lzo"
 endif
 
 ifneq ($(CONFIG_TINC_READLINE),y)
@@ -82,6 +101,11 @@ ifneq ($(CONFIG_TINC_CURSES),y)
 else
 	CONFIGURE_ARGS += \
 	--with-curses="$(STAGING_DIR)/usr"
+endif
+
+ifeq ($(CONFIG_TINC_NOLEGACY),y)
+	CONFIGURE_ARGS += \
+	--disable-legacy-protocol
 endif
 
 define Package/tinc/install
