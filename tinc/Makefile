@@ -71,7 +71,7 @@ TARGET_CFLAGS += -std=gnu99
 CONFIGURE_ARGS += \
 	--with-kernel="$(LINUX_DIR)"
 
-ifeq ($(CONFIG_TINC_ZLIB),n)
+ifneq ($(CONFIG_TINC_ZLIB),y)
 	CONFIGURE_ARGS += \
 	--disable-zlib
 else
@@ -79,7 +79,7 @@ else
 	--with-zlib="$(STAGING_DIR)/usr"
 endif
 
-ifeq ($(CONFIG_TINC_LZO),n)
+ifneq ($(CONFIG_TINC_LZO),y)
 	CONFIGURE_ARGS += \
 	--disable-lzo
 else
