@@ -6,6 +6,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE:=$(PKG_NAME)-$(PKG_VERSION).tar.gz
 PKG_SOURCE_URL:=https://wrt.ob.scu.red/projects/mdns-repeater
+PKG_MD5SUM:=64561194d752d29cdacbc15b0993f5c6
 
 include $(INCLUDE_DIR)/package.mk
 
